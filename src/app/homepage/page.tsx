@@ -1,24 +1,27 @@
-
 "use client";
 
-// pages/index.js
+// pages/index.tsx
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
+import Image from 'next/image'; // Import Image from next/image
 
-const Home = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const slides = ['/images/Leaders-03.png','/images/mp.jpg', '/images/mp1.jpg'];
-  const totalSlides = slides.length;
+const Home: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const slides: string[] = ['/images/Leaders-03.png', '/images/mp.jpg', '/images/mp1.jpg'];
+  const totalSlides: number = slides.length;
 
   // Handle slide change
-  const showSlide = (index:any) => {
+  const showSlide = (index: number) => {
     const offset = -index * 100;
-    document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
+    const carouselImages = document.querySelector('.carousel-images') as HTMLElement;
+    if (carouselImages) {
+      carouselImages.style.transform = `translateX(${offset}%)`;
+    }
   };
 
   useEffect(() => {
     showSlide(currentIndex);
-  }, [currentIndex]);
+  }, [currentIndex, totalSlides]); // Ensure totalSlides is included in the dependencies
 
   const handleNext = () => {
     setCurrentIndex((currentIndex + 1) % totalSlides);
@@ -34,13 +37,13 @@ const Home = () => {
     }, 5000); // Auto-slide every 5 seconds
 
     return () => clearInterval(interval); // Cleanup the interval
-  }, [currentIndex]);
+  }, [currentIndex, totalSlides]); // Added totalSlides to the dependencies
 
   return (
     <>
       <header className="d-flex justify-content-between align-items-center p-3">
         <div className="header-left d-flex align-items-center">
-          <img src="/images/download.png" alt="Logo" className="logo me-3" />
+          <Image src="/images/download.png" alt="Logo" className="logo me-3" width={50} height={50} />
           <h2>DEPARTMENT OF EDUCATION</h2>
         </div>
 
@@ -57,7 +60,7 @@ const Home = () => {
         <div className="carousel-images d-flex" style={{ transition: 'transform 0.5s ease-in-out' }}>
           {slides.map((slide, index) => (
             <div className="carousel-slide" key={index} style={{ flex: '0 0 100%' }}>
-              <img src={slide} alt={`Slide ${index + 1}`} className="w-100 h-100" />
+              <Image src={slide} alt={`Slide ${index + 1}`} layout="fill" objectFit="cover" className="w-100 h-100" />
             </div>
           ))}
         </div>
@@ -73,7 +76,7 @@ const Home = () => {
       <section className="results text-center p-4">
         <h2>NATIONAL EXAMINATION RESULTS - 2024.</h2>
         <p>Our government's vision is to modernise and provide quality education for all that is globally comparable
-          through strategic reforms. The National Department of Education (NDoE) is glad to continue to provide Grade 10, Grade 12 Student's National Examinations Results for 2023.
+          through strategic reforms. The National Department of Education (NDoE) is glad to continue to provide Grade 10, Grade 12 Student&apos;s National Examination Results for 2023.
         </p>
         <div className="row">
           <div className="col-md-4">
@@ -101,8 +104,6 @@ const Home = () => {
       </section>
 
       {/* Styled JSX for CSS */}
-
-
       <style jsx>{`
         .logo {
           width: 50px;
@@ -111,13 +112,12 @@ const Home = () => {
 
         .carousel {
           height: 600px;
-          width:auto;
+          width: auto;
         }
 
         .carousel-images img {
-          height:auto;
-          width:auto;
-        //   object-fit:cover;
+          height: auto;
+          width: auto;
         }
 
         .carousel-control {
@@ -147,6 +147,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-                                 
