@@ -1,36 +1,38 @@
-import React from 'react'
-import Image from 'next/image'
+import React from 'react';
+import Image from 'next/image';
 
 const Header = () => {
     return (
-        <header className=' py-3 xl:py-2 text-white bg-main'>
-            <div className='container px-6 md:px-6 xl:px-6 flex justify-between items-center'>
-                <div className='w-20 h-20 bg-white flex items-center justify-center rounded-full' >
-                    <Image src='/assets/Header/pnglogo.png' alt='' height={60} width={60}></Image>
+        <header className="bg-blue-900 shadow-md py-1"> {/* Reduced vertical padding */}
+            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4 space-y-2 md:space-y-0"> {/* Reduced space-y */}
+                
+                {/* Left Section */}
+                <div className="flex items-center space-x-3"> {/* Reduced space-x */}
+                    <div className="relative w-12 h-12 md:w-16 md:h-16"> {/* Reduced size */}
+                        <Image src="/assets/images/pnglogo.png" alt='Logo' fill className="object-contain" />
+                    </div>
+                    <h1 className="text-base md:text-xl font-bold text-white text-center md:text-left"> {/* Reduced font size */}
+                        National Examination Results - 2024
+                    </h1>
                 </div>
-
-                <div className='xl:hidden'>
-                    <h1 className=' text-[16px]  md:text-3xl '>Department of Education</h1>
-                    <h3 className='text-[10px] ph:text-3xl md:text-[16px]'>National Examination Results - 2024</h3>
-                </div>
-
-                <div className='hidden xl:block'>
-                    <h1 className='xl:text-4xl ml-20'>National Examination Results - 2024</h1>
-                </div>
-                <div className='hidden xl:flex items-center'>
-                <div className='w-20 h-20 bg-white flex items-center justify-center rounded-full' >
-                    <Image src='/assets/Header/pngem.png' alt='' height={60} width={60}></Image>
-                </div>
-                    <div>
-                        <h2>Department Of Education</h2>
-                        <h3>papua new guinea</h3>
+                
+                {/* Right Section, only visible on XL devices */}
+                <div className="hidden xl:flex items-center space-x-3"> {/* Only show on XL devices */}
+                    <div className="relative w-12 h-12 md:w-16 md:h-16"> {/* Reduced size */}
+                        <Image src="/assets/images/pngem.png" alt='Department Logo' fill className="object-contain" />
+                    </div>
+                    <div className="text-center md:text-left">
+                        <h1 className="text-base md:text-lg font-semibold text-white"> {/* Reduced font size */}
+                            Department of Education
+                        </h1>
+                        <h3 className="text-xs md:text-sm font-medium text-gray-300"> {/* Reduced font size */}
+                            Papua New Guinea
+                        </h3>
                     </div>
                 </div>
             </div>
-
-
         </header>
-    )
+    );
 }
 
-export default Header
+export default Header;
